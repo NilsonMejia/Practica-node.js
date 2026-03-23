@@ -18,6 +18,6 @@ app.get('/', (req, res) => {
 app.use('/users', usersRouter);
 
 
-app.listen(process.allowedNodeEnvironmentFlags.PORT || 3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
     console.log(`Servidor corrriendo en htttp://localhost:${process.env.PORT || 3000}`);
 });
