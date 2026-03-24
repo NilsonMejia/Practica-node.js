@@ -1,10 +1,10 @@
 import {pool} from '../db.js';
 
-export const getAllUsers = async (req, res ) => {
+export const getAllUsers = async () => {
     try {
         const result = await pool.query('SELECT * FROM doc.usuarios');
+        return result.rows;
 
-        res.json(result.rows);
 
     } catch (err) {
         res.status(500).json({error: err.message});
@@ -15,12 +15,12 @@ export const getAllUsers = async (req, res ) => {
 
 
 
-export const getUserByEmail = async (req, res ) => {
-    const {email}= req.params;
+export const getUserByEmail = async (email ) => {
+  
     try {
         const result = await pool.query('SELECT * FROM doc.usuarios WHERE email = $1', [email]);
 
-        res.json(result.rows);
+        return (result.rows);
 
     } catch (err) {
         res.status(500).json({error: err.message});
@@ -32,12 +32,12 @@ export const getUserByEmail = async (req, res ) => {
 
 
 export const getBuscarNombre = async (nombre) => {
-    const buscar = `%${nombre}%`
+     const buscar = `%${nombre}%`
 
         const result = await pool.query('SELECT * FROM doc.usuarios WHERE nombre like $1', [buscar]);
 
 
-        return result.rows;
+        return(result.rows);
            
    
 };

@@ -1,0 +1,14 @@
+export const errorHandler = (err, req,res,next) =>{
+    console.error(err);
+
+    const statusCode = err.statusCode || 501;
+
+    const message = err.message || 'Error interno del servidor!!!!!';
+
+    res.status(statusCode).json({
+        status: 'error',
+        message
+
+    });
+
+}

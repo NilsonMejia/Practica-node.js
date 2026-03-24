@@ -1,6 +1,9 @@
 import express from 'express';
 
-import usersRouter from './routes/users.js';
+import usersRouter from './routes/usersRoutes.js';
+
+
+import { errorHandler } from './Middlewares/errorHandler.js';
 
 import dotenv from 'dotenv'
 dotenv.config();
@@ -15,7 +18,14 @@ app.get('/', (req, res) => {
 
 });
 
+
+//Rutas
+
 app.use('/users', usersRouter);
+
+
+//Se use al final de cada ruta
+app.use(errorHandler);
 
 
 app.listen(process.env.PORT || 3000, ()=>{
