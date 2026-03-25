@@ -51,8 +51,7 @@ export const postCrearUsuario = async (req, res, next) => {
         const { nombre, documento, carnet, email, contrasenia } = req.body; 
         
   
-       // Agregamos la "s" para que coincida con tu importación
-const newUser = await usersServices.postCrearUsuario(nombre, documento, carnet, email, contrasenia);
+        const newUser = await usersServices.postCrearUsuario(nombre, documento, carnet, email, contrasenia);
 
         res.status(201).json(newUser); 
     } catch (err) {
@@ -73,3 +72,28 @@ export const deleteuser = async(req,res,next) =>{
     return next(err);
    }
 };
+
+
+
+export const putActualizar = async (req, res, next) => {
+    try {
+        
+        const { nombre, documento, carnet, email, contrasenia } = req.body; 
+        
+        
+        const { id_usuario } = req.params;
+
+        
+        const usuario = [nombre, documento, carnet, email, contrasenia, id_usuario];
+        
+       
+        const updatedUser = await usersServices.putActualizarUsuario(usuario);
+
+        
+        res.status(200).json(updatedUser); 
+    } catch (err) {
+        return next(err); 
+    }
+};
+
+
