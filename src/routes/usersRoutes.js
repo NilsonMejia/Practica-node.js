@@ -16,6 +16,8 @@ router.get('/buscarPorNombre/:nombre', usersController.getObtenerPorNombre);
 
 router.delete('/:id_usuario', runValidations(deleteUsuario), usersController.deleteuser)
 
+router.post('/',runValidations(createUserValidators), usersController.postCrearUsuario);
+
 // router.get('/buscarPorEmail/:email', getUserByEmail);
 
 // router.get('/buscarPorNombre/:nombre', async (req, res)=>{

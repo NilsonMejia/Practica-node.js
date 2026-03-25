@@ -10,12 +10,11 @@ export const getObtenerTodosLosUsuarios = async( req, res, next) => {
         res.json(resultUsuarios);
         
       } catch (err) {
-        //res.status(500).json({error: err.message})
         return next(err);
         
       }
 
-}
+};
 
 
 export const getObtenerPorEmail = async( req, res, next) => {
@@ -26,12 +25,11 @@ export const getObtenerPorEmail = async( req, res, next) => {
         res.json(resultPorEmail);
         
       } catch (err) {
-        //res.status(500).json({error: err.message})
         return next(err);
         
       }
 
-}
+};
 
 export const getObtenerPorNombre = async( req, res, next) => {
    
@@ -41,14 +39,26 @@ export const getObtenerPorNombre = async( req, res, next) => {
         res.json(resultPorNombre);
         
       } catch (err) {
-        //res.status(500).json({error: err.message})
         return next(err);
         
       }
 
-}
+};
 
 
+export const postCrearUsuario = async (req, res, next) => {
+    try {
+        const { nombre, documento, carnet, email, contrasenia } = req.body; 
+        
+  
+       // Agregamos la "s" para que coincida con tu importación
+const newUser = await usersServices.postCrearUsuario(nombre, documento, carnet, email, contrasenia);
+
+        res.status(201).json(newUser); 
+    } catch (err) {
+        return next(err); 
+    }
+};
 
 export const deleteuser = async(req,res,next) =>{
     try {
@@ -60,7 +70,6 @@ export const deleteuser = async(req,res,next) =>{
     
      res.status(200).json(result);
    } catch (err) {
-    // res.status(500).json({ error: err.message });
     return next(err);
    }
-}
+};

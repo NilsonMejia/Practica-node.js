@@ -1,15 +1,14 @@
 import {pool} from '../db.js';
 
+
+import bcrypt from 'bcryptjs';
+
 export const getAllUsers = async () => {
-    try {
+  
         const result = await pool.query('SELECT * FROM doc.usuarios');
         return result.rows;
 
 
-    } catch (err) {
-        res.status(500).json({error: err.message});
-        
-    }
 };
 
 
@@ -45,12 +44,16 @@ export const getBuscarNombre = async (nombre) => {
 
 
 export const postCrearUsuario = async (nombre, documento, carnet, email, contrasenia) => {
+    const SALT_ROUNDS = 10;
+
+    const salt = bcrypt.genSaltSync(SALT_ROUNDS);
+    const contraseniaHashed = bcrypt.hashSync(contrasenia, salt)
     try {
         const query= `INSERT INTO doc.usuarios(
         nombre, documento, carnet,email,contrasenia, bloqueado, ultimo_login, activo)
          VALUES ($1, $2, $3, $4, $5, 'N', null, 'A') RETURNING *;`
 
-        const result = await pool.query(query,[nombre, documento, carnet, email, contrasenia]);
+        const result = await pool.query(query,[nombre, documento, carnet, email, contraseniaHashed]);
 
         return result.rows[0];
 
